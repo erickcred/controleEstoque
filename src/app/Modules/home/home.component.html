@@ -1,0 +1,86 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="flex justify-content-center align-items-center text-align-center">
+
+      <!-- Form Login -->
+      <form [formGroup]="this.loginForm" (ngSubmit)="onSubimitLoginForm()">
+        <p-card *ngIf="this.loginCard"
+          styleClass="mt-10"
+          header="Login"
+          subheader="Faça login com sua conta existente">
+
+          <div class="flex justify-content-center align-items-center text-align-center p-float-label">
+            <input type="email" formControlName="email" pInputText placeholder="E-mail" />
+            <label>E-mail</label>
+          </div>
+
+          <div class="flex justify-content-center align-items-center text-align-center p-float-label mt-4">
+            <input [type]="!this.loginPassIsVisible ? 'password' : 'text'" formControlName="password" pInputText placeholder="Senha" />
+            <label>Senha</label>
+            <i [ngClass]="this.loginPassIsVisible ? 'pi pi-eye' : 'pi pi-eye-slash'"
+              (click)="this.showLoginPassword()"
+              style="color: rgb(111, 103, 161); font-size: 1.2rem; position: absolute; right: 14px; cursor: pointer"></i>
+          </div>
+
+          <div class="card flex justify-content-center mt-3">
+            <button
+              [disabled]="!this.loginForm.valid"
+              type="submit"
+              pButton
+              pRipple
+              label="Login"></button>
+          </div>
+          <span
+            class="flex justify-content-center align-items-center text-align-center mt-3 text-red-600 font-semibold"
+            style="cursor: pointer"
+            (click)="this.navigationLoginSigin()">
+            Criar Conta
+          </span>
+        </p-card>
+      </form>
+
+      <!-- Form Signup -->
+       <form [formGroup]="siginForm" (ngSubmit)="onSubimitSiginFormForm()">
+        <p-card *ngIf="!this.loginCard"
+          styleClass="mt-10"
+          header="Cadastre-se"
+          subheader="Crie já sua conta!">
+
+          <div class="flex justify-content-center align-items-center text-align-center p-float-label">
+            <input type="text" formControlName="name" pInputText placeholder="Nome" />
+            <label>Nome</label>
+          </div>
+          <div class="flex justify-content-center align-items-center text-align-center p-float-label mt-4">
+            <input type="email" formControlName="email" pInputText placeholder="E-mail" />
+            <label>E-mail</label>
+          </div>
+
+          <div class="flex justify-content-center align-items-center text-align-center p-float-label mt-4">
+            <input [type]="!this.siginPassIsVisible ? 'password' : 'text'" formControlName="password" pInputText placeholder="Senha" />
+            <label>Senha</label>
+            <i [ngClass]="this.siginPassIsVisible ? 'pi pi-eye' : 'pi pi-eye-slash'"
+              (click)="this.showSiginPassword()"
+              style="color: rgb(111, 103, 161); font-size: 1.2rem; position: absolute; right: 14px; cursor: pointer"></i>
+          </div>
+
+          <div class="card flex justify-content-center mt-3">
+            <button
+              [disabled]="!this.siginForm.valid"
+              type="submit"
+              pButton
+              pRipple
+              label="Criar conta"></button>
+          </div>
+          <span class="flex flex-column justify-content-center align-items-center mt-3 text-bluegray-400 block">Já tem cadastro?</span>
+          <span class="flex justify-content-center align-items-center">
+            Clique &nbsp;
+            <span class="text-red-600 font-semibold"
+              style="cursor: pointer"
+              (click)="this.navigationLoginSigin()">aqui!</span>
+          </span>
+        </p-card>
+       </form>
+
+    </div>
+  </div>
+</div>

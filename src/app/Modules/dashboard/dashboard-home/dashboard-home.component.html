@@ -1,0 +1,11 @@
+<p-toolbar>
+  <p-button
+    outlined="true"
+    icon="pi pi-bars"
+    (click)="this.topSidBarMenuPrincipal = true"></p-button>
+</p-toolbar>
+
+<p-sidebar [(visible)]="this.topSidBarMenuPrincipal" position="left">
+  <h3>Left Sidebar</h3>
+
+</p-sidebar>
