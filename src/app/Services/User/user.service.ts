@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { IAuthUserRequest } from 'src/app/Models/Interfaces/Auth/IAuthUserRequest';
 import { IAuthUserResponse } from 'src/app/Models/Interfaces/Auth/IAuthUserResponse';
@@ -14,7 +15,8 @@ export class UserService {
   private api_url = Environment.API_URL;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService
   ) { }
 
   singinUser(request: ISiginUserRequest): Observable<ISiginUserResponse> {
@@ -23,5 +25,10 @@ export class UserService {
 
   authUser(request: IAuthUserRequest): Observable<IAuthUserResponse> {
     return this.http.post<IAuthUserResponse>(`${this.api_url}/auth`, request);
+  }
+
+  isLoggedIn(): boolean {
+    const token =  this.cookieService.get('token');
+    return token ? true : false;
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   });
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private cookieService: CookieService,
@@ -57,6 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             });
             this.cookieService.set("token", response?.token);
             this.loginForm.reset();
+            this.router.navigate(['/dashboard'])
           }
         },
         error: (error) => {
