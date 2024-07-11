@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 // import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 
@@ -13,7 +15,10 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
   topSidBarMenuPrincipal: boolean = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit(): void {
 
@@ -22,5 +27,10 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  logout() {
+    this.cookieService.delete('token');
+    this.router.navigate(['/login']);
   }
 }

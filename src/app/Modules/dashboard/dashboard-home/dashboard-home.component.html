@@ -3,6 +3,11 @@
     outlined="true"
     icon="pi pi-bars"
     (click)="this.topSidBarMenuPrincipal = true"></p-button>
+
+  <p-button
+    [text]="true"
+    label="Sair"
+    (click)="logout()"></p-button>
 </p-toolbar>
 
 <p-sidebar [(visible)]="this.topSidBarMenuPrincipal" position="left">
