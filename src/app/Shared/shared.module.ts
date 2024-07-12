@@ -1,48 +1,46 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
-import { MessageService } from 'primeng/api';
+import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
+import { DialogService } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { MenubarModule } from 'primeng/menubar';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ToolbarNavigationComponent } from './Components/toolbar-navigation/toolbar-navigation.component';
 
-import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { SharedModule } from 'src/app/Shared/shared.module';
-
+import { MenuModule  } from 'primeng/menu';
 
 @NgModule({
   declarations: [
-    DashboardHomeComponent
+    ToolbarNavigationComponent
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
 
-    // PrimeNG
+    /// PrimeNG
     CardModule,
     InputTextModule,
     ButtonModule,
     ToastModule,
     SidebarModule,
     ToolbarModule,
-    MenubarModule,
     ChartModule,
+    MenuModule ,
 
-    // Shared
-    SharedModule,
+  ],
+  exports: [
+    ToolbarNavigationComponent,
   ],
   providers: [
-    MessageService,
-    CookieService,
-  ]
+    DialogService,
+    CurrencyPipe,
+  ],
 })
-export class DashboardModule { }
+export class SharedModule { }

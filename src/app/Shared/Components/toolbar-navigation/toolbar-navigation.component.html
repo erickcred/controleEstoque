@@ -1,0 +1,52 @@
+<p-toolbar aria-label="Actions"
+  [style]="{ 'background-image': 'linear-gradient(to right, var(--bluegray-200), var(--bluegray-800))' }">
+  <p-button
+    outlined="true"
+    icon="pi pi-bars"
+    (click)="this.topSidBarMenuPrincipal = true"></p-button>
+
+  <p-button
+    [text]="true"
+    label="Sair"
+    (click)="logout()"></p-button>
+</p-toolbar>
+
+<p-sidebar
+  [(visible)]="this.topSidBarMenuPrincipal"
+  position="left"
+  styleClass="w-15rem">
+  <div class="flex flex-column gap-3 mt-2" >
+    <p-button
+      label="Home"
+      [text]="true"
+      routerLink="/dashboard"
+      routerLinkActive="exact_route"
+      icon="pi pi-home"></p-button>
+
+    <p-button
+      label="Vender"
+      [text]="true"
+      [raised]="true"
+      severity="success"
+      routerLink="/products"
+      routerLinkActive="exact_route"
+      icon="pi pi-credit-card"></p-button>
+
+    <p-button
+      label="Produtos"
+      [text]="true"
+      [raised]="true"
+      routerLink="/products"
+      routerLinkActive="exact_route"
+      icon="pi pi-cart-polus"></p-button>
+
+    <p-button
+      label="Categorias"
+      [text]="true"
+      [raised]="true"
+      routerLink="/categories"
+      routerLinkActive="exact_route"
+      icon="pi pi-ticket"></p-button>
+
+  </div>
+</p-sidebar>

@@ -167,7 +167,15 @@ body {
 
 .exact_route {
   button {
-    background-color: #6372c3 !important;
+    background-color: var(--primary-500) !important;
+    color: white;
+  }
+
+  &_sales {
+    button {
+      background-color: var(--green-500) !important;
+      color: white;
+    }
   }
 
   :host ::ng-deep .p-dropdown {
