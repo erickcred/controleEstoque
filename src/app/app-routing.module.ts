@@ -10,6 +10,11 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./Modules/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [GuardAuth]
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./Modules/product/product.module').then(m => m.ProductModule),
+    canActivate: [GuardAuth]
   }
 ];
 
