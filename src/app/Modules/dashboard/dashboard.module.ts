@@ -7,7 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import { MenubarModule } from 'primeng/menubar'
+import { MenubarModule } from 'primeng/menubar';
+import { ChartModule } from 'primeng/chart';
 
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -33,6 +34,7 @@ import { CookieService } from 'ngx-cookie-service';
     SidebarModule,
     ToolbarModule,
     MenubarModule,
+    ChartModule,
   ],
   providers: [
     MessageService,
