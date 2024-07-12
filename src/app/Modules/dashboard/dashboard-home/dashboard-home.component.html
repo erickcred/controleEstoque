@@ -16,23 +16,22 @@
 </p-sidebar>
 
 
-<div style="overflow-y: auto; height: 90vh;" class="mt-3 flex flex-wrap gap-4 w-100">
+<div style="overflow-y: auto; width: 100%; height: 90vh;" class="mt-3 grid gap-4">
   <p-card
     header="Estoque"
-    class="relative">
+    class="relative col-lg-3 col-md-6 col-sm-12">
     <i
       style="position: absolute; top: 20px; right: 10px; cursor: pointer; font-size: 20px"
       [ngClass]="this.isExpandChar ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" (click)="expandChart($event)"></i>
-    <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+    <p-chart style="width: 100vw" type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
   </p-card>
 
   <p-card
     header="Vendas"
-    class="relative">
+    class="relative col-lg-3 col-md-6 col-sm-12">
     <i
       style="position: absolute; top: 20px; right: 10px; cursor: pointer; font-size: 20px"
       [ngClass]="this.isExpandChar ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" (click)="expandChart($event)"></i>
     <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
   </p-card>
-
 </div>
