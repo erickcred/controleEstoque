@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { Subject } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
+import { IGetProductsResponse } from 'src/app/Models/Interfaces/Products/Response/IGetProductsResponse';
+import { ProductService } from 'src/app/Services/Products/product.service';
+import { ProdutctDataTransferService } from 'src/app/Shared/services/produtcts/produtct-data-transfer.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -11,75 +13,24 @@ import { Subject } from 'rxjs';
 export class DashboardHomeComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject();
 
-  basicData: any;
-  basicOptions: any;
+  productsCharts!: any;
+  productsChartsOptions: any;
+  productList!: IGetProductsResponse[];
+  isExpandChar: boolean = false;
 
-  constructor(private router: Router, private cookieService: CookieService) {}
+
+  constructor(
+    private messageService: MessageService,
+    private productService: ProductService,
+    private productDtTransferService: ProdutctDataTransferService
+  ) {}
 
   ngOnInit(): void {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue(
-      '--text-color-secondary'
-    );
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    this.loadItemsCarts();
 
-    this.basicData = {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-      datasets: [
-        {
-          label: 'Sales',
-          data: [540, 325, 702, 620],
-          backgroundColor: [
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-          ],
-          borderColor: [
-            'rgb(255, 159, 64)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-          ],
-          borderWidth: 1,
-        },
-      ],
-    };
 
-    this.basicOptions = {
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor,
-          },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-        x: {
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-      },
-    };
   }
 
-  isExpandChar = false;
   expandChart(event: any) {
     if (this.isExpandChar == false) {
       event.srcElement.nextSibling.parentNode.style = "width: 90vw; height: 80vh; z-index: 100;";
@@ -92,7 +43,100 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadItemsCarts() {
+    this.productService.getAllProducts()
+    .pipe( takeUntil(this.destroy$) )
+    .subscribe({
+      next: (response: IGetProductsResponse[]) => {
+        if (response.length > 0) {
+          console.log(response);
+          this.productList = response;
+          this.productDtTransferService.setProductsData(response);
+          this.setProductCharts();
+        }
+      },
+      error: (error) => {
+        console.log(error.error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error?.error.error,
+          life: 5000,
+        });
+      }
+    });
+  }
 
+  setProductCharts() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    this.productsCharts = {
+      labels: this.productList.map(p => p.name),
+      datasets: [
+        {
+          label: 'Quantidade',
+          backgroundColor: [
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+          ],
+          borderColor: [
+            'rgb(255, 159, 64)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+          ],
+          hoverBackgroundColor: [
+            'rgb(255, 159, 64, 0.7)',
+            'rgb(75, 192, 192, 0.7)',
+            'rgb(54, 162, 235, 0.7)',
+            'rgb(153, 102, 255, 0.7)',
+          ],
+          data: this.productList.map(p => p.amount),
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    this.productsChartsOptions = {
+      maintainAspctRatio: false,
+      aspectRatio: 1,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary,
+            font: { weight: '600'}
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: textColorSecondary,
+            font: { weight: '600'}
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false,
+          },
+        },
+      },
+    };
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
