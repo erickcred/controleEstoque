@@ -5,7 +5,7 @@ import { IGetProductsResponse } from 'src/app/Models/Interfaces/Products/Respons
 @Injectable({
   providedIn: 'root'
 })
-export class ProdutctDataTransferService {
+export class ProductDataTransferService {
 
   public productsDateEmitter$ = new BehaviorSubject<IGetProductsResponse[] | null>(null);
   public productsData: Array<IGetProductsResponse> = []
@@ -21,10 +21,7 @@ export class ProdutctDataTransferService {
 
   getProductsData() {
     this.productsDateEmitter$
-      .pipe(
-        take(1),
-        map(product => product?.filter(p => p.amount > 0))
-      )
+      .pipe( take(1) )
       .subscribe({
         next: (response) => {
           if (response) {

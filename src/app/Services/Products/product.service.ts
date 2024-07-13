@@ -28,7 +28,7 @@ export class ProductService {
     return this.http
     .get<IGetProductsResponse[]>(`${this.api_url}/products`, this.httpOptions)
     .pipe(
-      map(product => product.filter(p => p.amount > 0))
+      // map(product => product.filter(p => p.amount > 0))
     );
   }
 }

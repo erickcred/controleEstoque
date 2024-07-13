@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { IGetProductsResponse } from 'src/app/Models/Interfaces/Products/Response/IGetProductsResponse';
 import { ProductService } from 'src/app/Services/Products/product.service';
-import { ProdutctDataTransferService } from 'src/app/Shared/services/produtcts/produtct-data-transfer.service';
+import { ProductDataTransferService } from 'src/app/Shared/services/produtcts/product-data-transfer.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -22,13 +22,11 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService,
     private productService: ProductService,
-    private productDtTransferService: ProdutctDataTransferService
+    private productDtTransferService: ProductDataTransferService
   ) {}
 
   ngOnInit(): void {
     this.loadItemsCarts();
-
-
   }
 
   expandChart(event: any) {
@@ -49,14 +47,12 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     .subscribe({
       next: (response: IGetProductsResponse[]) => {
         if (response.length > 0) {
-          console.log(response);
           this.productList = response;
           this.productDtTransferService.setProductsData(response);
           this.setProductCharts();
         }
       },
       error: (error) => {
-        console.log(error.error);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

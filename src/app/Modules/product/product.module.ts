@@ -17,6 +17,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from 'src/app/Shared/shared.module';
+import { TagModule } from 'primeng/tag';
 
 import { ProductHomeComponent } from './product-home/product-home.component';
 import { ProductRoutingModule } from './product-routing.module';
@@ -47,6 +48,7 @@ import { ProductRoutingModule } from './product-routing.module';
     DropdownModule,
     ConfirmDialogModule,
     TooltipModule,
+    TagModule,
   ],
   providers: [
     MessageService,

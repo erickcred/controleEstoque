@@ -4,7 +4,7 @@ import { HomeComponent } from './Modules/home/home.component';
 import { GuardAuth } from './Guards/guard-auth';
 
 const routes: Routes = [
-  // { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'products' },
   { path: 'login', component: HomeComponent },
   {
     path: 'dashboard',
