@@ -16,8 +16,6 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
   productsCharts!: any;
   productsChartsOptions: any;
   productList!: IGetProductsResponse[];
-  isExpandChar: boolean = false;
-
 
   constructor(
     private messageService: MessageService,
@@ -27,18 +25,6 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadItemsCarts();
-  }
-
-  expandChart(event: any) {
-    if (this.isExpandChar == false) {
-      event.srcElement.nextSibling.parentNode.style = "width: 90vw; height: 80vh; z-index: 100;";
-      event.srcElement.nextSibling.children[0].children[0].style = "width: 100%; height: 70%;";
-      this.isExpandChar = true;
-    } else {
-      event.srcElement.nextSibling.parentNode.style = ""
-      event.srcElement.nextSibling.children[0].children[0].style = `width: ${(100 / 1.9) - 10}%;`;
-      this.isExpandChar = false;
-    }
   }
 
   loadItemsCarts() {
