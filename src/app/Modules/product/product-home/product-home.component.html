@@ -2,47 +2,19 @@
 
 <div style="overflow-y: auto; width: 100%; height: 90vh; margin: 0 auto;" class="p-5">
 
-  <p-table
-    [value]="products"
-    [paginator]="true"
-    [rows]="5"
-    [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[5, 10, 50]"
-    [tableStyle]="{'min-width': '60rem'}">
-    <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between gap-1">
-        Products
-        <div>
-          <p-button icon="pi pi-plus" styleClass="mr-1"></p-button>
-          <p-button icon="pi pi-refresh"></p-button>
-        </div>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Name</th>
-        <th>Image</th>
-        <th>Price</th>
-        <th>Category</th>
-        <th>Quantity</th>
-        <th>Status</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-      <tr>
-        <td>{{product.name}}</td>
-        <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-        <td>{{product.price | currency:'USD'}}</td>
-        <td>{{product.category.name}}</td>
-        <td>{{product.amount}}</td>
-        <td><p-tag [value]="getStock(product.amount)" [severity]="getSeverity(product.amount)"></p-tag></td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
-            In total there are {{products ? products.length : 0 }} products.
-        </div>
-    </ng-template>
-  </p-table>
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+
+  <app-product-table
+    [products]="this.products"
+    (eventProductAction)="this.productEventAction($event)"
+    (deleteProductAction)="this.deleteProductAction($event)"></app-product-table>
+
+    <p-toast
+    position="top-right"
+    [showTransformOptions]="'translateY(100%)'"
+    [showTransitionOptions]="'1000ms'"
+    [hideTransitionOptions]="'1000ms'"
+    [showTransformOptions]="'translateY(100%)'"
+    [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' }}"></p-toast>
 
 </div>

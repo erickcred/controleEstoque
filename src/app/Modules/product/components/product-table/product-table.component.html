@@ -1,0 +1,117 @@
+<p-table
+#productsTable
+[value]="products"
+dataKey='id'
+[paginator]="true"
+[rows]="5"
+[showCurrentPageReport]="true"
+[rowsPerPageOptions]="[5, 10, 50]"
+[globalFilterFields]="['name', 'price', 'amount']"
+[tableStyle]="{'min-width': '60rem'}"
+[(selection)]="productSelected">
+<ng-template pTemplate="caption">
+  <div class="flex align-items-center justify-content-between gap-1">
+    <h3>Products</h3>
+    <div>
+      <p-button
+        label="Adicionar"
+        styleClass="mr-1"
+        (click)="this.productEvent(this.add)"></p-button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template pTemplate="header">
+  <tr>
+    <th pSortableColumn="name">
+      <div class="flex justify-content-between align-items-center">
+        Nome
+        <div class="flex align-items-center">
+          <p-sortIcon field="name"></p-sortIcon>
+          <p-columnFilter
+            field="name"
+            type="text"
+            display="menu"
+            matchMode="contains"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showButtons]="false"></p-columnFilter>
+        </div>
+      </div>
+    </th>
+    <th>Descrição</th>
+    <th pSortableColumn="price">
+      <div  class="flex justify-content-between align-items-center">
+        Prço
+        <div class="flex align-items-center">
+          <p-sortIcon field="price"></p-sortIcon>
+          <p-columnFilter
+            field="price"
+            type="text"
+            display="menu"
+            matchMode="contains"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showButtons]="false"></p-columnFilter>
+        </div>
+      </div>
+    </th>
+    <th pSortableColumn="amount">
+      <div class="flex justify-content-between align-items-center">
+        Quantidade
+        <div class="flex align-items-center">
+          <p-sortIcon field="amount"></p-sortIcon>
+          <p-columnFilter
+            field="amount"
+            type="text"
+            display="menu"
+            matchMode="contains"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showButtons]="false"></p-columnFilter>
+        </div>
+      </div>
+    </th>
+    <th>Categoria</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+</ng-template>
+
+<ng-template pTemplate="body" let-product>
+  <tr>
+    <td>{{product.name}}</td>
+    <td [pTooltip]="this.product?.description" tooltipPosition="top">{{product.description}}</td>
+    <td>{{product.price | currency:'BRL'}}</td>
+    <td>{{product.amount}}</td>
+    <td>{{product.category.name}}</td>
+    <td><p-tag [value]="getStock(product.amount)" [severity]="getSeverity(product.amount)"></p-tag></td>
+    <td class="flex justify-content-center align-content-center align-items-center gap-3">
+      <button
+        pButton
+        pRipple
+        icon="pi pi-pencil"
+        class="p-button-rounded p-button-warning"
+        size="small"
+        pTooltip="Editar Produto"
+        tooltipPosition="top"
+        (click)="this.productEvent(this.edit, product.id)"></button>
+
+      <button
+        pButton
+        pRipple
+        icon="pi pi-trash"
+        class="p-button-rounded p-button-danger"
+        pTooltip="Excluir Produto"
+        tooltipPosition="top"
+        (click)="this.deleteProduct(product.id, product.name)"></button>
+    </td>
+  </tr>
+</ng-template>
+
+<ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+        Total de {{ products ? products.length : 0 }} tipos de produtos. -
+    </div>
+</ng-template>
+</p-table>

@@ -21,10 +21,13 @@ import { TagModule } from 'primeng/tag';
 
 import { ProductHomeComponent } from './product-home/product-home.component';
 import { ProductRoutingModule } from './product-routing.module';
+import { ProductTableComponent } from './components/product-table/product-table.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
-    ProductHomeComponent
+    ProductHomeComponent,
+    ProductTableComponent
   ],
   imports: [
     CommonModule,
@@ -32,8 +35,6 @@ import { ProductRoutingModule } from './product-routing.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-
-    SharedModule,
 
     // PrimeNG
     CardModule,
@@ -49,6 +50,10 @@ import { ProductRoutingModule } from './product-routing.module';
     ConfirmDialogModule,
     TooltipModule,
     TagModule,
+    ToastModule,
+
+    // Shared
+    SharedModule,
   ],
   providers: [
     MessageService,
