@@ -1,5 +1,7 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +17,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './Modules/home/home.component';
+
+registerLocaleData(localePt)
 
 @NgModule({
   declarations: [
@@ -39,6 +43,7 @@ import { HomeComponent } from './Modules/home/home.component';
   providers: [
     CookieService,
     MessageService,
+    { provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]
 })
