@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
 import { IProductEventAction } from 'src/app/Models/Interfaces/Event/IProductEventAction';
 import { IProductEventDeleteAction } from 'src/app/Models/Interfaces/Event/IProductEventDeleteAction';
 import { IGetProductsResponse } from 'src/app/Models/Interfaces/Products/Response/IGetProductsResponse';
 import { ProductService } from 'src/app/Services/Products/product.service';
 import { ProductDataTransferService } from 'src/app/Shared/services/produtcts/product-data-transfer.service';
+import { ProductFormComponent } from '../components/product-form/product-form.component';
 
 @Component({
   selector: 'app-product-home',
@@ -15,6 +17,7 @@ import { ProductDataTransferService } from 'src/app/Shared/services/produtcts/pr
 })
 export class ProductHomeComponent implements OnInit, OnDestroy {
 
+  private ref!: DynamicDialogRef;
   private readonly destroy$: Subject<void> = new Subject();
 
   products!: IGetProductsResponse[];
@@ -25,6 +28,7 @@ export class ProductHomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +68,23 @@ export class ProductHomeComponent implements OnInit, OnDestroy {
   productEventAction(event: IProductEventAction): void {
     if (event) {
       console.log('Dados recebidos do evento: ', event);
+      this.ref = this.dialogService.open(ProductFormComponent, {
+        header: event.action,
+        width: '80%',
+        styleClass: 'p-5',
+        contentStyle: { overflow: 'auto' },
+        baseZIndex: 10000,
+        maximizable: true,
+        data: {
+          event: event,
+          products: this.products
+        }
+      });
+      this.ref.onClose
+        .pipe( takeUntil(this.destroy$) )
+        .subscribe({
+          next: () => this.getProductData()
+        })
     }
   }
 

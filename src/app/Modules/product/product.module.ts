@@ -23,11 +23,13 @@ import { ProductHomeComponent } from './product-home/product-home.component';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import { ToastModule } from 'primeng/toast';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 @NgModule({
   declarations: [
     ProductHomeComponent,
-    ProductTableComponent
+    ProductTableComponent,
+    ProductFormComponent,
   ],
   imports: [
     CommonModule,

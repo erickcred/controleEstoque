@@ -1,0 +1,128 @@
+<!-- Form Add Product -->
+<form [formGroup]="this.addProductForm" (submit)="this.submitAddProduct()">
+  <span>
+    <div class="flex flex-column gap-2">
+      <label>Nome Produto</label>
+      <input pInputText formControlName="name" />
+    </div>
+  </span>
+
+  <div class="mt-4 flex row-gap-4 gap-2 flex-wrap lign-items-center">
+
+    <span>
+      <div class="flex flex-column gap-2">
+        <label>Quantidade</label>
+        <p-inputNumber formControlName="amount"
+          inputId="current-pt"
+          mode="decimal"/>
+      </div>
+    </span>
+
+    <span>
+      <div class="flex flex-column gap-2">
+        <label class="text-secondary">Preço</label>
+        <p-inputNumber formControlName="price"
+          inputId="current-pt"
+          mode="currency"
+          currency="BRL"
+          locale="pt-br" />
+      </div>
+    </span>
+
+    <span>
+      <div class="flex flex-column gap-2">
+        <label>Categoria</label>
+        <p-dropdown
+          [options]="this.categories"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="Selecione a Categoria"
+          [showClear]="true"
+          [(ngModel)]="this.selectedCategory"
+          formControlName="category_id"></p-dropdown>
+      </div>
+    </span>
+
+  </div>
+
+  <span>
+    <div class="mt-3 flex flex-column gap-2">
+      <label>Descrição</label>
+      <textarea rows="4" cols="30" pInputTextarea formControlName="description"></textarea>
+    </div>
+  </span>
+
+  <div class="mt-4">
+    <p-button
+      label="Cadastrar"
+      styleClass="p-button-success"
+      [disabled]="this.addProductForm.valid == false"
+      (click)="this.submitAddProduct()"></p-button>
+  </div>
+</form>
+
+<!-- Form Update Product -->
+<!--
+<form [formGroup]="this.editProductForm" (submit)="this.submitUpdateProduct()">
+  <span>
+    <div class="flex flex-column gap-2">
+      <label>Nome ProdutoE</label>
+      <input pInputText formControlName="name" />
+    </div>
+  </span>
+
+  <div class="mt-4 flex row-gap-4 gap-2 flex-wrap align-items-center">
+
+    <span>
+      <div class="flex flex-column gap-2">
+        <label>Quantidade</label>
+        <p-inputNumber formControlName="amount"
+          inputId="current-pt"
+          mode="decimal"
+          [min]="1"/>
+      </div>
+    </span>
+
+    <span>
+      <div class="flex flex-column gap-2">
+        <label>Preço</label>
+        <p-inputNumber formControlName="price"
+          inputId="current-pt"
+          mode="currency"
+          currency="BRL"
+          locale="pt-br" />
+      </div>
+    </span>
+
+    <span>
+      <div class="flex flex-column gap-2">
+        <label>Categoria</label>
+        <p-dropdown
+          [options]="this.categories"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="Selecione a Categoria"
+          [showClear]="true"
+          [(ngModel)]="this.selectedCategory"
+          formControlName="category_id"></p-dropdown>
+      </div>
+    </span>
+
+  </div>
+
+  <span>
+    <div class="mt-3 flex flex-column gap-2">
+      <label>Descrição</label>
+      <textarea rows="4" cols="30" pInputTextarea formControlName="description"></textarea>
+    </div>
+  </span>
+
+  <div class="mt-4">
+    <p-button
+      label="Salvar"
+      styleClass="p-button-success"
+      [disabled]="this.editProductForm.valid == false"
+      (click)="this.submitUpdateProduct()"></p-button>
+  </div>
+</form>
+-->

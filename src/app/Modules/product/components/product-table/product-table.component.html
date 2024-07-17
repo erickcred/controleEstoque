@@ -83,7 +83,7 @@ dataKey='id'
     <td>{{product.name}}</td>
     <td [pTooltip]="this.product?.description" tooltipPosition="top">{{product.description}}</td>
     <td>{{product.price | currency:'BRL'}}</td>
-    <td>{{product.amount}}</td>
+    <td>{{product.amount | number: '1.0-0'}}</td>
     <td>{{product.category.name}}</td>
     <td><p-tag [value]="getStock(product.amount)" [severity]="getSeverity(product.amount)"></p-tag></td>
     <td class="flex justify-content-center align-content-center align-items-center gap-3">
@@ -115,3 +115,6 @@ dataKey='id'
     </div>
 </ng-template>
 </p-table>
+
+
+<app-product-form></app-product-form>
